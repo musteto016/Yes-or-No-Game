@@ -1,0 +1,121 @@
+<html><head><base href="https://websim.ai" />
+<title>Yes or No Game - Simple Decision Making Fun!</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .game-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  h1 {
+    color: #4a4a4a;
+  }
+  .question {
+    font-size: 18px;
+    margin: 20px 0;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  #yesBtn {
+    background-color: #4CAF50;
+    color: white;
+  }
+  #noBtn {
+    background-color: #f44336;
+    color: white;
+  }
+  #yesBtn:hover {
+    background-color: #45a049;
+  }
+  #noBtn:hover {
+    background-color: #da190b;
+  }
+  #result {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Yes or No Game</h1>
+    <p class="question" id="question">Are you ready to play?</p>
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    const questions = [
+      "Famata gazar li e?",
+      "Arif bil li e na lunata?",
+      "Nazito faraon li e?",
+      "Jekito bil li e top 10 v bulgarie na Brawl Stars?",
+      "Bi li rabotil Arif vuv fabrikata na Hell's Energy Drink?",
+      "Mucio izvunzemno li e",
+      "Muteto uchastval li e v pogreshen zavoi?",
+    ];
+
+    let currentQuestion = 0;
+    const questionElement = document.getElementById('question');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const resultElement = document.getElementById('result');
+
+    function updateQuestion() {
+      if (currentQuestion < questions.length) {
+        questionElement.textContent = questions[currentQuestion];
+        resultElement.textContent = '';
+      } else {
+        questionElement.textContent = "Game Over! Thanks for playing!";
+        yesBtn.style.display = 'none';
+        noBtn.style.display = 'none';
+      }
+    }
+
+    function handleAnswer(answer) {
+      const correctAnswers = [true, null, true, true, true, false, null];
+      
+      if (currentQuestion < questions.length) {
+        if (correctAnswers[currentQuestion] === null) {
+          resultElement.textContent = "Ima visoka veroqtnost";
+        } else if (answer === correctAnswers[currentQuestion]) {
+          resultElement.textContent = "Correct!";
+        } else {
+          resultElement.textContent = "Oops! That's not quite right.";
+        }
+        
+        currentQuestion++;
+        setTimeout(updateQuestion, 1500);
+      }
+    }
+
+    yesBtn.addEventListener('click', () => handleAnswer(true));
+    noBtn.addEventListener('click', () => handleAnswer(false));
+
+    updateQuestion();
+  </script>
+</body></html>
